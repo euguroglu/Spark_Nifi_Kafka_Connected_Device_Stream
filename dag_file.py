@@ -39,3 +39,9 @@ with DAG("ecommerce_platform",start_date=datetime(2021, 1, 1),
             poke_interval = 5,
             timeout = 20
          )
+
+         #Python operator example
+         downloading_rates = PythonOperator(
+            task_id = "downloading_rates",
+            python_callable = download_rates
+         )

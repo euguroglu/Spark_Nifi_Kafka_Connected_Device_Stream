@@ -23,9 +23,9 @@ def download_rates():
 
     indata = requests.get(f"{BASE_URL}")
     with open('indata') as f:
-    indata= json.loads("[" +
-        f.read().replace("}\n{", "},\n{") +
-    "]")
+        indata= json.loads("[" +
+            f.read().replace("}\n{", "},\n{") +
+        "]")
 
     with open('/home/enes/Applications/BD_Project_1/data/product-views.json', 'a') as outfile:
         json.dump(indata, outfile)

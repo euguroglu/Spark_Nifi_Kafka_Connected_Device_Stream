@@ -22,13 +22,12 @@ def download_rates():
     BASE_URL = "https://raw.githubusercontent.com/euguroglu/Spark_Nifi_Kafka_Connected_Device_Stream/master/data/product-views.json"
 
     indata = requests.get(f"{BASE_URL}")
-    with open('indata') as f:
-        indata= json.loads("[" +
-            f.read().replace("}\n{", "},\n{") +
-        "]")
+    data = []
+    for line in indata:
+        data.append(json.loads(line))
 
     with open('/home/enes/Applications/BD_Project_1/data/product-views.json', 'a') as outfile:
-        json.dump(indata, outfile)
+        json.dump(data, outfile)
         outfile.write('\n')
 
 with DAG("ecommerce_platform",start_date=datetime(2021, 1, 1),

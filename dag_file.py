@@ -21,7 +21,11 @@ default_args = {
 def download_rates():
     BASE_URL = "https://raw.githubusercontent.com/euguroglu/Spark_Nifi_Kafka_Connected_Device_Stream/master/data/product-views.json"
 
-    indata = json.loads(requests.get(f"{BASE_URL}").json())
+    indata = requests.get(f"{BASE_URL}")
+    with open('indata') as f:
+    indata= json.loads("[" +
+        f.read().replace("}\n{", "},\n{") +
+    "]")
 
     with open('/home/enes/Applications/BD_Project_1/data/product-views.json', 'a') as outfile:
         json.dump(indata, outfile)

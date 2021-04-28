@@ -21,11 +21,11 @@ default_args = {
 def download_rates():
     BASE_URL = "https://raw.githubusercontent.com/euguroglu/Spark_Nifi_Kafka_Connected_Device_Stream/master/data/product-views.json"
 
-        indata = requests.get(f"{BASE_URL}").json()
+    indata = requests.get(f"{BASE_URL}").json()
 
-        with open('/home/enes/Applications/BD_Project_1/data/product-views.json', 'a') as outfile:
-            json.dump(indata, outfile)
-            outfile.write('\n')
+    with open('/home/enes/Applications/BD_Project_1/data/product-views.json', 'a') as outfile:
+        json.dump(indata, outfile)
+        outfile.write('\n')
 
 with DAG("ecommerce_platform",start_date=datetime(2021, 1, 1),
          schedule_interval="@daily", default_args=default_args, catchup=False) as dag:

@@ -23,7 +23,7 @@ def download_rates():
 
     indata = requests.get(f"{BASE_URL}")
 
-    with open('/home/enes/Applications/BD_Project_1/data/product-views.json', 'wb').write(indata.content)
+    open('/home/enes/Applications/BD_Project_1/data/product-views.json', 'wb').write(indata.content)
 
 
 with DAG("ecommerce_platform",start_date=datetime(2021, 1, 1),

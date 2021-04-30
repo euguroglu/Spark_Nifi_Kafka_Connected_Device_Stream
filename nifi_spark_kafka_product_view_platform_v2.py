@@ -4,7 +4,7 @@ from pyspark.sql.types import StructType, StructField, StringType, IntegerType
 
 #Define foreach batch function to aggrate stream data several times and print console
 def foreach_batch_func(df, epoch_id):
-    df = df.sort(desc("count"))
+    df = df.sort(desc("source_number"))
     df \
         .write.format("console") \
         .save()

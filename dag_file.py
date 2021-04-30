@@ -53,7 +53,7 @@ with DAG("ecommerce_platform",start_date=datetime(2021, 1, 1),
             hql="""
                 CREATE EXTERNAL TABLE IF NOT EXISTS commerce(
                     start TIMESTAMP,
-                    end TIMESTAMP,
+                    `end` TIMESTAMP,
                     source STRING,
                     source_number INTEGER
                     )

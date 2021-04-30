@@ -13,6 +13,15 @@ def foreach_batch_func(df, epoch_id):
         .save()
     pass
 
+#Define foreach batch function to aggrate stream data and sink to hive
+def foreach_batch_func2(df, epoch_id):
+    df = df.sort(desc("source_number"))
+    df \
+        .write.mode("append") \
+        .insertInto("commerce")
+        .save()
+    pass
+
 if __name__ == "__main__":
     spark = SparkSession \
         .builder \
@@ -73,6 +82,13 @@ if __name__ == "__main__":
 #Write spark stream to console or csv sink
     window_query = output_df.writeStream \
     .foreachBatch(lambda df, epoch_id: foreach_batch_func(df, epoch_id))\
+    .option("checkpointLocation", "chk-point-dir") \
+    .outputMode("update") \
+    .trigger(processingTime="5 minutes") \
+    .start()
+
+    window_query2 = output_df.writeStream \
+    .foreachBatch(lambda df, epoch_id: foreach_batch_func2(df, epoch_id))\
     .option("checkpointLocation", "chk-point-dir") \
     .outputMode("update") \
     .trigger(processingTime="5 minutes") \

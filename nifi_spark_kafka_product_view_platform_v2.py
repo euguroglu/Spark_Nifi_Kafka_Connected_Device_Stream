@@ -80,10 +80,10 @@ if __name__ == "__main__":
 
 # Write raw data into HDFS
     output_df.writeStream \
-      .trigger(processingTime='5 seconds') \
+      .trigger(processingTime='5 minute') \
       .format("csv") \
-      .option("path", "hdfs://localhost:9000/tmp/data") \
-      .option("checkpointLocation", "/home/enes/Applications/data") \
+      .option("path", "hdfs://localhost:9000/tmp/data/ecommerce") \
+      .option("checkpointLocation", "chk-point-dir") \
       .start()
 
     window_query.awaitTermination()

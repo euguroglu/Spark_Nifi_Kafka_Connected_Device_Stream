@@ -3,6 +3,7 @@ from airflow.providers.http.sensors.http import HttpSensor
 from airflow.sensors.filesystem import FileSensor
 from airflow.operators.python import PythonOperator
 from airflow.providers.apache.spark.operators.spark_submit import SparkSubmitOperator
+from airflow.providers.apache.hive.operators.hive import HiveOperator
 
 from datetime import datetime, timedelta
 import requests
@@ -43,6 +44,23 @@ with DAG("ecommerce_platform",start_date=datetime(2021, 1, 1),
          downloading_rates = PythonOperator(
             task_id = "downloading_rates",
             python_callable = download_rates
+         )
+
+         #Hive operator
+         creating_commerce_table = HiveOperator(
+            task_id="creating_commerce_table",
+            hive_cli_conn_id="hive_conn",
+            hql="""
+                CREATE EXTERNAL TABLE IF NOT EXISTS commerce(
+                    start TIMESTAMP,
+                    end TIMESTAMP,
+                    source STRING,
+                    source_number INTEGER
+                    )
+                ROW FORMAT DELIMITED
+                FIELDS TERMINATED BY ','
+                STORED AS TEXTFILE
+            """
          )
 
          #Spark operator

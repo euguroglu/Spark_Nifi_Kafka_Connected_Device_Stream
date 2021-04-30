@@ -1,6 +1,9 @@
+from os.path import abspath
 from pyspark.sql import SparkSession, Window
 from pyspark.sql.functions import from_json, col, to_timestamp, window, expr, sum, approx_count_distinct, desc
 from pyspark.sql.types import StructType, StructField, StringType, IntegerType
+
+warehouse_location = abspath('spark-warehouse')
 
 #Define foreach batch function to aggrate stream data several times and print console
 def foreach_batch_func(df, epoch_id):
@@ -16,7 +19,9 @@ if __name__ == "__main__":
         .appName("Tumbling Window Stream Users Platform") \
         .master("local[3]") \
         .config("spark.streaming.stopGracefullyOnShutdown", "true") \
+        .config("spark.sql.warehouse.dir", warehouse_location) \
         .config("spark.sql.shuffle.partitions", 2) \
+        .enableHiveSupport() \
         .getOrCreate()
 
 #Describe schema (productid will be enough to find viewed category in the last 5 minute)

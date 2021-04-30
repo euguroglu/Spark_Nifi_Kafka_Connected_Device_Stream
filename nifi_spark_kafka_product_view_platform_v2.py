@@ -13,14 +13,6 @@ def foreach_batch_func(df, epoch_id):
         .save()
     pass
 
-#Define foreach batch function to aggrate stream data and sink to hive
-def foreach_batch_func2(df, epoch_id):
-    df = df.sort(desc("source_number"))
-    df \
-        .write.mode("append") \
-        .insertInto("commerce") \
-    pass
-
 if __name__ == "__main__":
     spark = SparkSession \
         .builder \
@@ -86,11 +78,12 @@ if __name__ == "__main__":
     .trigger(processingTime="5 minutes") \
     .start()
 
-    window_query2 = output_df.writeStream \
-    .foreachBatch(lambda df, epoch_id: foreach_batch_func2(df, epoch_id))\
-    .option("checkpointLocation", "chk-point-dir") \
-    .outputMode("update") \
-    .trigger(processingTime="5 minutes") \
-    .start()
+# Write raw data into HDFS
+    output_df.writeStream \
+      .trigger(processingTime='5 seconds') \
+      .format("csv") \
+      .option("path", "hdfs://localhost:9000/tmp/data") \
+      .option("checkpointLocation", "/home/enes/Applications/data") \
+      .start()
 
     window_query.awaitTermination()

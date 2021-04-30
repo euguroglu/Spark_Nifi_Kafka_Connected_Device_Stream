@@ -55,7 +55,7 @@ with DAG("ecommerce_platform",start_date=datetime(2021, 1, 1),
                     `start` TIMESTAMP,
                     `end` TIMESTAMP,
                     source STRING,
-                    source_number LONG
+                    source_number BIGINT
                     )
                 ROW FORMAT DELIMITED
                 FIELDS TERMINATED BY ','

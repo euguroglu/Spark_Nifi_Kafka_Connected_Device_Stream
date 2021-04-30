@@ -50,5 +50,6 @@ with DAG("ecommerce_platform",start_date=datetime(2021, 1, 1),
             task_id = "commerce_processing",
             application = "/home/enes/Applications/BD_Project_1/nifi_spark_kafka_product_view_platform_v2.py",
             conn_id = "spark_conn",
-            verbose = False
+            verbose = False,
+            packages = "org.apache.spark:spark-sql-kafka-0-10_2.12:3.0.1"
          )

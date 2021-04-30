@@ -19,7 +19,6 @@ def foreach_batch_func2(df, epoch_id):
     df \
         .write.mode("append") \
         .insertInto("commerce") \
-        .save()
     pass
 
 if __name__ == "__main__":

@@ -18,7 +18,7 @@ def foreach_batch_func2(df, epoch_id):
     df = df.sort(desc("source_number"))
     df \
         .write.mode("append") \
-        .insertInto("commerce")
+        .insertInto("commerce") \
         .save()
     pass
 

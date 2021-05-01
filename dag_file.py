@@ -67,7 +67,7 @@ with DAG("ecommerce_platform",start_date=datetime(2021, 1, 1),
                     )
                 ROW FORMAT DELIMITED
                 FIELDS TERMINATED BY ','
-                STORED AS TEXTFILE
+                STORED AS PARQUET
                 LOCATION '/tmp/data/ecommerce';
             """
          )

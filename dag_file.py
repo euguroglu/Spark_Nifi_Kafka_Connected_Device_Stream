@@ -98,5 +98,5 @@ with DAG("ecommerce_platform",start_date=datetime(2021, 1, 1),
          )
 
          #Define dependencies
-         is_connection_available >> downloading_rates >> commerce_processing
-         commerce_processing >> creating_commerce_table >> hive_to_mysql >> send_email_notification
+         is_connection_available >> downloading_rates >> commerce_processing >> delay_python_task
+         delay_python_task >> creating_commerce_table >> hive_to_mysql >> send_email_notification

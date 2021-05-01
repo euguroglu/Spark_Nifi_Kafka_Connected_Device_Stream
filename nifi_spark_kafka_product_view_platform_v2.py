@@ -70,6 +70,8 @@ if __name__ == "__main__":
 
     output_df.printSchema()
 
+    output2_df = output_df.drop("start", "end")
+
 #Write spark stream to console or csv sink
     window_query = output_df.writeStream \
     .foreachBatch(lambda df, epoch_id: foreach_batch_func(df, epoch_id))\

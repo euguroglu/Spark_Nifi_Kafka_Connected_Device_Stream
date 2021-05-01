@@ -61,8 +61,8 @@ with DAG("ecommerce_platform",start_date=datetime(2021, 1, 1),
             hive_cli_conn_id="hive_conn",
             hql="""
                 CREATE EXTERNAL TABLE IF NOT EXISTS commerce(
-                    `start` TIMESTAMP,
-                    `end` TIMESTAMP,
+                    `start` DATE,
+                    `end` DATE,
                     source STRING,
                     source_number BIGINT
                     )

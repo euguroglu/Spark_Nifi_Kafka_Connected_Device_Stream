@@ -46,6 +46,15 @@ with DAG("ecommerce_platform",start_date=datetime(2021, 1, 1),
             python_callable = download_rates
          )
 
+         #Spark operator
+         commerce_processing = SparkSubmitOperator(
+            task_id = "commerce_processing",
+            application = "/home/enes/Applications/BD_Project_1/nifi_spark_kafka_product_view_platform_v2.py",
+            conn_id = "spark_conn",
+            verbose = False,
+            packages = "org.apache.spark:spark-sql-kafka-0-10_2.12:3.0.1"
+         )
+
          #Hive operator
          creating_commerce_table = HiveOperator(
             task_id="creating_commerce_table",
@@ -60,14 +69,6 @@ with DAG("ecommerce_platform",start_date=datetime(2021, 1, 1),
                 ROW FORMAT DELIMITED
                 FIELDS TERMINATED BY ','
                 STORED AS TEXTFILE
+                LOCATION '/tmp/data/ecommerce';
             """
-         )
-
-         #Spark operator
-         commerce_processing = SparkSubmitOperator(
-            task_id = "commerce_processing",
-            application = "/home/enes/Applications/BD_Project_1/nifi_spark_kafka_product_view_platform_v2.py",
-            conn_id = "spark_conn",
-            verbose = False,
-            packages = "org.apache.spark:spark-sql-kafka-0-10_2.12:3.0.1"
          )

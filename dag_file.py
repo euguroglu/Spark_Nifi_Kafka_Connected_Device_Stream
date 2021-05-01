@@ -80,6 +80,5 @@ with DAG("ecommerce_platform",start_date=datetime(2021, 1, 1),
             conn_id = "sqoop_conn",
             cmd_type = "export",
             table = "commerce",
-            export_dir = "/tmp/data/ecommerce"
             hcatalog_table = "commerce"
          )

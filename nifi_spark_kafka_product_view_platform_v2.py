@@ -81,7 +81,7 @@ if __name__ == "__main__":
     .start()
 
 # Write raw data into HDFS
-    output_df.writeStream \
+    output2_df.writeStream \
       .trigger(processingTime='5 minute') \
       .format("parquet") \
       .option("path", "hdfs://localhost:9000/tmp/data/ecommerce") \

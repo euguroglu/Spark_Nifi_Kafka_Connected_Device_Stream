@@ -80,3 +80,15 @@ with DAG("ecommerce_platform",start_date=datetime(2021, 1, 1),
             table = "commerce",
             hcatalog_table = "commerce"
          )
+
+         #Email operator
+         send_email_notification = EmailOperator(
+            task_id = "send_email_notification",
+            to = "airflow_course@yopmail.com",
+            subject = "commerce_data_pipeline",
+            html_content = "<h3>commerce_data_pipeline</h3>"
+         )
+
+         #Define dependencies
+         is_connection_available >> downloading_rates >> commerce_processing
+         commerce_processing >> creating_commerce_table >> hive_to_mysql >> send_email_notification

@@ -57,6 +57,12 @@ with DAG("ecommerce_platform",start_date=datetime(2021, 1, 1),
             packages = "org.apache.spark:spark-sql-kafka-0-10_2.12:3.0.1"
          )
 
+         #Python operator example delay
+         delay_python_task = PythonOperator(
+            task_id = "delay_python_task",
+            python_callable = lambda: time.sleep(300)
+        )
+
          #Hive operator
          creating_commerce_table = HiveOperator(
             task_id="creating_commerce_table",

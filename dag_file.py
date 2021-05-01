@@ -8,6 +8,7 @@ from airflow.providers.apache.sqoop.operators.sqoop import SqoopOperator
 from airflow.operators.email import EmailOperator
 
 from datetime import datetime, timedelta
+import time
 import requests
 import json
 
@@ -60,7 +61,7 @@ with DAG("ecommerce_platform",start_date=datetime(2021, 1, 1),
          #Python operator example delay
          delay_python_task = PythonOperator(
             task_id = "delay_python_task",
-            python_callable = lambda: time.sleep(300)
+            python_callable = lambda: time.sleep(60)
         )
 
          #Hive operator

@@ -5,6 +5,7 @@ from airflow.operators.python import PythonOperator
 from airflow.providers.apache.spark.operators.spark_submit import SparkSubmitOperator
 from airflow.providers.apache.hive.operators.hive import HiveOperator
 from airflow.providers.apache.sqoop.operators.sqoop import SqoopOperator
+from airflow.operators.email import EmailOperator
 
 from datetime import datetime, timedelta
 import requests

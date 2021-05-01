@@ -37,7 +37,7 @@ if __name__ == "__main__":
         .option("kafka.bootstrap.servers", "localhost:9092") \
         .option("subscribe", "platform") \
         .option("startingOffsets", "earliest") \
-        .option("failOnDataLoss", "false")
+        .option("failOnDataLoss", "false") \
         .load()
 #Data in kafka topic have key-value format, from_json is used to deserialize json value from string
     value_df = kafka_df.select(from_json(col("value").cast("string"), schema).alias("value"))
@@ -76,7 +76,6 @@ if __name__ == "__main__":
 #Write spark stream to console or csv sink
     window_query = output_df.writeStream \
     .foreachBatch(lambda df, epoch_id: foreach_batch_func(df, epoch_id))\
-    .option("checkpointLocation", "chk-point-dir2") \
     .outputMode("update") \
     .trigger(processingTime="5 minutes") \
     .start()
